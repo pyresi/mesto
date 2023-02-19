@@ -1,6 +1,6 @@
 .footer {
   max-width: 880px;
-  margin: 66px auto 0 auto;
+  margin: 66px auto 60px auto;
   padding: 0 19px 0 19px;
 }
 
@@ -8,6 +8,7 @@
   .footer {
     max-width: 282px;
     margin-left: 19px;
+    margin-bottom: 36px;
     /* width: 238px; */
   }
 }
