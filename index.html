@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesto</title>
     <link rel="stylesheet" href="pages/index.css">
+
 </head>
 
 <body class="root">
@@ -15,7 +16,7 @@
         <!-- ---------------- -->
         <header class="header">
             <img class="header__logo" src="./images/header-logo.svg" alt="Лого сайта Места">
-            <hr>
+            <hr class="header__hr">
         </header>
         <!-- ---------------- -->
         <!-- -----main----- -->
@@ -28,56 +29,58 @@
                 <img class="profile__avatar" src="./images/avatar.svg"
                     alt="Портретная фотография улыбающегося Жак-Ива Густо">
                 <div class="profile__info">
-                    <h1 class="profile__name">Жак-Ив Кусто</h1>
+                    <div class="profile__info-box">
+                        <h1 class="profile__name">Жак-Ив Кусто</h1>
+                        <button class="profile__button-edit"></button>
+                    </div>
                     <h2 class="profile__bio">Исследователь океана</h2>
-                    <button class="profile__button-edit">/</button>
                 </div>
-                <button class="profile__button-add">+</button>
+                <button class="profile__button-add"></button>
             </section>
             <!-- ---------------- -->
             <!-- -----elements----- -->
             <!-- ---------------- -->
             <div class="elements">
                 <div class="element">
-                    <img class="element__photo" src="./images/Ptichiy.jpg" alt="Мыс Птичий">
+                    <img class="element__photo" src="./images/Ptichiy.png" alt="Мыс Птичий">
                     <div class="element__description">
-                        <h3 class="element__title">Мыс Птичий</h3>
-                        <img class="element__like" src="./images/Heart.svg" />
+                        <h3 class="element__title">Мыс&nbsp;Птичий</h3>
+                        <img class="element__like element__like_active" src="./images/Heart.svg" alt="Иконка сердца">
                     </div>
                 </div>
                 <div class="element">
-                    <img class="element__photo" src="./images/Zhivopisny.jpg" alt="Живописный мост">
+                    <img class="element__photo" src="./images/Zhivopisny.png" alt="Живописный мост">
                     <div class="element__description">
-                        <h3 class="element__title">Мыс Птичий</h3>
-                        <img class="element__like" src="./images/Heart.svg"></img>
+                        <h3 class="element__title">Живописный&nbsp;мост</h3>
+                        <img class="element__like element__like_active" src="./images/Heart.svg" alt="Иконка сердца">
                     </div>
                 </div>
                 <div class="element">
-                    <img class="element__photo" src="./images/Baikal.jpg" alt="Озеро Байкал">
+                    <img class="element__photo" src="./images/Baikal.png" alt="Озеро Байкал">
                     <div class="element__description">
-                        <h3 class="element__title">Мыс Птичий</h3>
-                        <img class="element__like" src="./images/Heart.svg"></img>
+                        <h3 class="element__title">Озеро&nbsp;Байкал</h3>
+                        <img class="element__like element__like_active" src="./images/Heart.svg" alt="Иконка сердца">
                     </div>
                 </div>
                 <div class="element">
-                    <img class="element__photo" src="./images/Zolotoy.jpg" alt="Золотой Мост">
+                    <img class="element__photo" src="./images/Zolotoy.png" alt="Золотой Мост">
                     <div class="element__description">
-                        <h3 class="element__title">Мыс Птичий</h3>
-                        <img class="element__like" src="./images/Heart.svg"></img>
+                        <h3 class="element__title">Золотой&nbsp;Мост</h3>
+                        <img class="element__like element__like_active" src="./images/Heart.svg" alt="Иконка сердца">
                     </div>
                 </div>
                 <div class="element">
-                    <img class="element__photo" src="./images/Volga.jpg" alt="Река Волга">
+                    <img class="element__photo" src="./images/Volga.png" alt="Река Волга">
                     <div class="element__description">
-                        <h3 class="element__title">Мыс Птичий</h3>
-                        <img class="element__like" src="./images/Heart.svg"></img>
+                        <h3 class="element__title">Река&nbsp;Волга</h3>
+                        <img class="element__like element__like_active" src="./images/Heart.svg" alt="Иконка сердца">
                     </div>
                 </div>
                 <div class="element">
-                    <img class="element__photo" src="./images/Vyatlin.jpg" alt="Мыс Вятлина">
+                    <img class="element__photo" src="./images/Vyatlin.png" alt="Мыс Вятлина">
                     <div class="element__description">
-                        <h3 class="element__title">Мыс Птичий</h3>
-                        <img class="element__like" src="./images/Heart.svg"></img>
+                        <h3 class="element__title">Мыс&nbsp;Вятлина</h3>
+                        <img class="element__like element__like_active" src="./images/Heart.svg" alt="Иконка сердца">
                     </div>
                 </div>
             </div>
@@ -86,7 +89,21 @@
         <!-- -----footer----- -->
         <!-- ---------------- -->
         <footer class="footer">
-            <!-- <p class="footer__copyright">&copy; 2023. Анастасия Пыресина</p> -->
+            <span class="footer__copyright">&copy; 2023, Mesto Russia</span>
         </footer>
+        <div class="popup">
+            <form class="popup__container">
+                <button class="popup__button-close" type="button"></button>
+                <h2 class="popup__title">Редактировать профиль</h2>
+                <input class="popup__input popup__input_type_name" value="Жак-Ив Кусто">
+                <hr class="popup__hr">
+                <input class="popup__input popup__input_type_job" value="Исследователь океана">
+                <hr class="popup__hr">
+                <button class="popup__button-save" type="submit">Сохранить</button>
+            </form>
+        </div>
     </div>
+    <script src="./js/index.js"></script>
 </body>
+
+</html>
