@@ -2,12 +2,13 @@
   display: flex;
   max-width: 336px;
   gap: 18px;
-  margin-top: 22px;
+  margin: 8px 0 0 0;
 }
 
-/* @media screen and (max-width: 767px) {
+@media screen and (max-width: 767px) {
   .profile__info-box {
-    flex-direction: column;
-    margin: 36px 19px 51px 19px;
+    width: 282px;
+    margin: 26px auto 0 auto;
+    gap: 10px;
   }
-} */
+}

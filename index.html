@@ -16,7 +16,6 @@
         <!-- ---------------- -->
         <header class="header">
             <img class="header__logo" src="./images/header-logo.svg" alt="Лого сайта Места">
-            <hr class="header__hr">
         </header>
         <!-- ---------------- -->
         <!-- -----main----- -->
@@ -26,84 +25,84 @@
             <!-- -----profile----- -->
             <!-- ---------------- -->
             <section class="profile">
-                <img class="profile__avatar" src="./images/avatar.svg"
+                <img class="profile__avatar" src="./images/avatar.jpg"
                     alt="Портретная фотография улыбающегося Жак-Ива Густо">
                 <div class="profile__info">
                     <div class="profile__info-box">
                         <h1 class="profile__name">Жак-Ив Кусто</h1>
-                        <button class="profile__button-edit"></button>
+                        <button class="profile__button-edit" type="button"></button>
                     </div>
                     <h2 class="profile__bio">Исследователь океана</h2>
                 </div>
-                <button class="profile__button-add"></button>
+                <button class="profile__button-add" type="button"></button>
             </section>
             <!-- ---------------- -->
             <!-- -----elements----- -->
             <!-- ---------------- -->
             <div class="elements">
-                <div class="element">
+                <article class="element">
                     <img class="element__photo" src="./images/Ptichiy.png" alt="Мыс Птичий">
                     <div class="element__description">
-                        <h3 class="element__title">Мыс&nbsp;Птичий</h3>
-                        <img class="element__like element__like_active" src="./images/Heart.svg" alt="Иконка сердца">
+                        <h2 class="element__title">Мыс&nbsp;Птичий</h2>
+                        <button class="element__like element__like_active" type="button"></button>
                     </div>
-                </div>
-                <div class="element">
+                </article>
+                <article class="element">
                     <img class="element__photo" src="./images/Zhivopisny.png" alt="Живописный мост">
                     <div class="element__description">
-                        <h3 class="element__title">Живописный&nbsp;мост</h3>
-                        <img class="element__like element__like_active" src="./images/Heart.svg" alt="Иконка сердца">
+                        <h2 class="element__title">Живописный&nbsp;мост</h2>
+                        <button class="element__like element__like_active" type="button"></button>
                     </div>
-                </div>
-                <div class="element">
+                </article>
+                <article class="element">
                     <img class="element__photo" src="./images/Baikal.png" alt="Озеро Байкал">
                     <div class="element__description">
-                        <h3 class="element__title">Озеро&nbsp;Байкал</h3>
-                        <img class="element__like element__like_active" src="./images/Heart.svg" alt="Иконка сердца">
+                        <h2 class="element__title">Озеро&nbsp;Байкал</h2>
+                        <button class="element__like element__like_active" type="button"></button>
                     </div>
-                </div>
-                <div class="element">
+                </article>
+                <article class="element">
                     <img class="element__photo" src="./images/Zolotoy.png" alt="Золотой Мост">
                     <div class="element__description">
-                        <h3 class="element__title">Золотой&nbsp;Мост</h3>
-                        <img class="element__like element__like_active" src="./images/Heart.svg" alt="Иконка сердца">
+                        <h2 class="element__title">Золотой&nbsp;Мост</h2>
+                        <button class="element__like element__like_active" type="button"></button>
                     </div>
-                </div>
-                <div class="element">
+                </article>
+                <article class="element">
                     <img class="element__photo" src="./images/Volga.png" alt="Река Волга">
                     <div class="element__description">
-                        <h3 class="element__title">Река&nbsp;Волга</h3>
-                        <img class="element__like element__like_active" src="./images/Heart.svg" alt="Иконка сердца">
+                        <h2 class="element__title">Река&nbsp;Волга</h2>
+                        <button class="element__like element__like_active" type="button"></button>
                     </div>
-                </div>
-                <div class="element">
+                </article>
+                <article class="element">
                     <img class="element__photo" src="./images/Vyatlin.png" alt="Мыс Вятлина">
                     <div class="element__description">
-                        <h3 class="element__title">Мыс&nbsp;Вятлина</h3>
-                        <img class="element__like element__like_active" src="./images/Heart.svg" alt="Иконка сердца">
+                        <h2 class="element__title">Мыс&nbsp;Вятлина</h2>
+                        <button class="element__like element__like_active" type="button"></button>
                     </div>
-                </div>
+                </article>
             </div>
         </main>
         <!-- ---------------- -->
         <!-- -----footer----- -->
         <!-- ---------------- -->
         <footer class="footer">
-            <span class="footer__copyright">&copy; 2023, Mesto Russia</span>
+            <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
         </footer>
         <div class="popup">
-            <form class="popup__container">
+            <div class="popup__container">
                 <button class="popup__button-close" type="button"></button>
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <input class="popup__input popup__input_type_name" value="Жак-Ив Кусто">
-                <hr class="popup__hr">
-                <input class="popup__input popup__input_type_job" value="Исследователь океана">
-                <hr class="popup__hr">
-                <button class="popup__button-save" type="submit">Сохранить</button>
-            </form>
+                <form name="popup-form">
+                    <input name="input-name" class="popup__input popup__input_type_name">
+                    <input name="input-job" class="popup__input popup__input_type_job">
+                    <button class="popup__button-save" type="submit">Сохранить</button>
+                </form>
+            </div>
         </div>
     </div>
-    <script src="./js/index.js"></script>
+    <script src="./scripts/index.js"></script>
 </body>
 
 </html>

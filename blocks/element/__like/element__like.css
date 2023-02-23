@@ -1,7 +1,11 @@
 .element__like {
-  width: 20px;
   margin-right: 20px;
-  /* display: inline; */
+  min-height: 19px;
+  min-width: 22px;
+  background-image: url(../../../images/Heart.svg);
+  border: none;
+  background-color: transparent;
+  padding: 0;
 }
 
 .element__like:hover {
