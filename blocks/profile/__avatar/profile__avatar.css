@@ -2,6 +2,6 @@
   border-radius: 50%;
   max-width: 120px;
   max-height: 120px;
-  align-items: left;
+  /* align-items: left; */
   margin: 0;
 }
