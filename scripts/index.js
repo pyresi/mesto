@@ -29,11 +29,11 @@ function deleteCard(evt) {
   evt.target.parentNode.remove();
 }
 
-function addButtonHandler() {
+function openAddPopup() {
   popupAdd.classList.add("popup_opened");
 }
 
-function editButtonHandler() {
+function openEditPopup() {
   jobInput.value = profileBio.textContent;
   nameInput.value = profileName.textContent;
   popupEdit.classList.add("popup_opened");
@@ -43,14 +43,14 @@ function closePopup(evt) {
   evt.target.parentNode.parentNode.classList.remove("popup_opened");
 }
 
-function openEditPopup(evt) {
+function handleEditForm(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileBio.textContent = jobInput.value;
   close(evt);
 }
 
-function openAddPopup(evt) {
+function handleAddForm(evt) {
   evt.preventDefault();
   addElement({ name: inputTitle.value, link: inputLink.value }, true);
   close(evt);
@@ -96,8 +96,8 @@ buttonEdit.addEventListener("click", openEditPopup);
 buttonEditClose.addEventListener("click", closePopup);
 buttonAddClose.addEventListener("click", closePopup);
 buttonPhotoClose.addEventListener("click", closePopup);
-editForm.addEventListener("submit", editFormHandler);
-addForm.addEventListener("submit", addFormHandler);
+editForm.addEventListener("submit", handleEditForm);
+addForm.addEventListener("submit", handleAddForm);
 
 // Cards
 const initialCards = [
