@@ -30,6 +30,8 @@ function deleteCard(evt) {
 }
 
 function openAddPopup() {
+  inputTitle.value = "";
+  inputLink.value = "";
   popupAdd.classList.add("popup_opened");
 }
 
@@ -47,13 +49,13 @@ function handleEditForm(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileBio.textContent = jobInput.value;
-  close(evt);
+  closePopup(evt);
 }
 
 function handleAddForm(evt) {
   evt.preventDefault();
   addElement({ name: inputTitle.value, link: inputLink.value }, true);
-  close(evt);
+  closePopup(evt);
 }
 
 function openPhotoPopup(evt) {
