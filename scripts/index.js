@@ -7,41 +7,47 @@ const elements = document.querySelector('.elements');
 const elementTemplate = document.querySelector('#element-template').content;
 
 const popupEdit = document.querySelector('.popup_type_edit');
-const editForm = popupEdit.querySelector('.popup__container');
+const editForm = document.forms['popup-form-edit'];
 const nameInput = popupEdit.querySelector('.popup__input_type_name');
 const jobInput = popupEdit.querySelector('.popup__input_type_job');
-const buttonEditClose = popupEdit.querySelector('.popup__button-close');
+// const buttonEditClose = popupEdit.querySelector('.popup__button-close');
 
 const popupAdd = document.querySelector('.popup_type_add');
-const addForm = popupAdd.querySelector('.popup__container');
-const buttonAddClose = popupAdd.querySelector('.popup__button-close');
+const addForm = document.forms['popup-form-add'];
+// const buttonAddClose = popupAdd.querySelector('.popup__button-close');
 const inputTitle = popupAdd.querySelector('.popup__input_type_title');
 const inputLink = popupAdd.querySelector('.popup__input_type_link');
 
 const popupPhoto = document.querySelector('.popup_type_photo');
-const buttonPhotoClose = popupPhoto.querySelector('.popup__button-close');
+// const buttonPhotoClose = popupPhoto.querySelector('.popup__button-close');
 const photo = popupPhoto.querySelector('.popup__photo');
 const photoSubtitle = popupPhoto.querySelector('.popup__photo-subtitle');
 
 // -------------------------------------
 
 // Functions
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+}
+
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+}
+
 function deleteCard(evt) {
-  evt.target.parentNode.remove();
+  evt.target.closest('.element').remove();
 }
 
 function openAddPopup() {
-  inputTitle.value = '';
-  inputLink.value = '';
-  popupAdd.classList.add('popup_opened');
   validateForm(document.forms['popup-form-add']);
+  openPopup(popupAdd);
 }
 
 function openEditPopup() {
   jobInput.value = profileBio.textContent;
   nameInput.value = profileName.textContent;
-  popupEdit.classList.add('popup_opened');
   validateForm(document.forms['popup-form-edit']);
+  openPopup(popupEdit);
 }
 
 function closePopup() {
@@ -53,17 +59,20 @@ function handleEditForm(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileBio.textContent = jobInput.value;
-  closePopup(evt);
+  closeEventPopup(evt);
 }
 
 function handleAddForm(evt) {
   evt.preventDefault();
-  addElement({ name: inputTitle.value, link: inputLink.value }, true);
-  closePopup(evt);
+  const newCard = createCard({ name: inputTitle.value, link: inputLink.value });
+  addElement(newCard);
+  inputTitle.value = '';
+  inputLink.value = '';
+  closeEventPopup(evt);
 }
 
 function openPhotoPopup(evt) {
-  popupPhoto.classList.add('popup_opened');
+  openPopup(popupPhoto);
   photo.src = evt.target.src;
   photo.alt = evt.target.alt;
   photoSubtitle.textContent = evt.target.alt;
@@ -73,7 +82,7 @@ function toggleLike(evt) {
   evt.target.classList.toggle('element__like_active');
 }
 
-function addElement(element, prepend = false) {
+function createCard(element) {
   const currentElement = elementTemplate.cloneNode(true);
 
   const like = currentElement.querySelector('.element__like');
@@ -89,11 +98,11 @@ function addElement(element, prepend = false) {
   trash.addEventListener('click', deleteCard);
   elementPhoto.addEventListener('click', openPhotoPopup);
 
-  if (prepend === true) {
-    elements.prepend(currentElement);
-  } else {
-    elements.append(currentElement);
-  }
+  return currentElement;
+}
+
+function addElement(card) {
+  elements.prepend(card);
 }
 
 function hasInvalidInput(fieldList) {
@@ -134,11 +143,12 @@ function validateButton(fieldList, buttonSave) {
 }
 // -------------------------------------
 
+document.querySelectorAll('.popup__button-close').forEach((button) => {
+  button.addEventListener('click', closePopup);
+});
+
 buttonAdd.addEventListener('click', openAddPopup);
 buttonEdit.addEventListener('click', openEditPopup);
-buttonEditClose.addEventListener('click', closePopup);
-buttonAddClose.addEventListener('click', closePopup);
-buttonPhotoClose.addEventListener('click', closePopup);
 editForm.addEventListener('submit', handleEditForm);
 addForm.addEventListener('submit', handleAddForm);
 
@@ -185,8 +195,6 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
   },
 ];
-
-initialCards.forEach(addElement);
 
 // _________________________ВАЛИДАЦИЯ__________________________
 
@@ -241,3 +249,7 @@ enableValidation({
   formName: 'popup-form-add',
   fieldSelector: '.form__field',
 });
+
+const createdCards = initialCards.map(createCard);
+createdCards.reverse();
+createdCards.forEach(addElement);
