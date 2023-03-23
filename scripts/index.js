@@ -157,10 +157,10 @@ const initialCards = [
 
 enableValidation({
   formSelector: '.popup__form',
-  fieldSelector: '.form__field',
+  fieldSelector: '.popup__form-field',
   buttonSelector: '.popup__button-save',
   inputSelector: '.popup__input',
-  inputErrorSelector: '.form__input-error',
+  inputErrorSelector: '.popup__form-field-error',
 });
 
 const createdCards = initialCards.map(createCard);
