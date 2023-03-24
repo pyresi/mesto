@@ -64,7 +64,7 @@ function handleEditForm(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileBio.textContent = jobInput.value;
-  closePopup(evt);
+  closeEventPopup(evt);
 }
 
 function handleAddForm(evt) {
@@ -73,7 +73,7 @@ function handleAddForm(evt) {
   addElement(newCard);
   inputTitle.value = '';
   inputLink.value = '';
-  closePopup(evt);
+  closeEventPopup(evt);
 }
 
 function toggleLike(evt) {
