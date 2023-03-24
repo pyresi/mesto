@@ -1,57 +1,78 @@
-function hasInvalidInput(fieldList) {
+function hasInvalidInput(fieldList, inputSelector) {
   return fieldList.some(function (fieldElement) {
-    return !fieldElement.querySelector('.popup__input').validity.valid;
+    return !fieldElement.querySelector(inputSelector).validity.valid;
   });
 }
 
-function disableButton(button) {
-  button.classList.add('popup__button-save_disabled');
-  button.setAttribute('disabled', 'disabled');
+function disableButton(button, inactiveButtonClass) {
+  button.classList.add(inactiveButtonClass);
+  button.disabled = true;
 }
 
-function enableButton(button) {
-  button.classList.remove('popup__button-save_disabled');
-  button.removeAttribute('disabled');
+function enableButton(button, inactiveButtonClass) {
+  button.classList.remove(inactiveButtonClass);
+  button.disabled = false;
 }
 
-export function validateForm(form) {
-  const fieldList = Array.from(form.querySelectorAll('.form__field'));
-  const buttonSave = form.querySelector('.popup__button-save');
+export function validateForm(form, config) {
+  const fieldList = Array.from(form.querySelectorAll(config.fieldSelector));
+  const buttonSave = form.querySelector(config.buttonSelector);
 
   fieldList.forEach((field) => {
-    const input = field.querySelector('.popup__input');
-    const errorSpan = field.querySelector('.form__input-error');
-    checkInputValidity(input, errorSpan);
+    const input = field.querySelector(config.inputSelector);
+    const errorSpan = field.querySelector(config.inputErrorSelector);
+    checkInputValidity(
+      input,
+      errorSpan,
+      config.errorActiveClass,
+      config.errorInputClass
+    );
   });
 
-  validateButton(fieldList, buttonSave);
+  validateButton(
+    fieldList,
+    buttonSave,
+    config.inputSelector,
+    config.inactiveButtonClass
+  );
 }
 
-function validateButton(fieldList, buttonSave) {
-  if (hasInvalidInput(fieldList)) {
-    disableButton(buttonSave);
+function validateButton(
+  fieldList,
+  buttonSave,
+  inputSelector,
+  inactiveButtonClass
+) {
+  if (hasInvalidInput(fieldList, inputSelector)) {
+    disableButton(buttonSave, inactiveButtonClass);
   } else {
-    enableButton(buttonSave);
+    enableButton(buttonSave, inactiveButtonClass);
   }
 }
 
-function showInputError(input, errorSpan) {
-  errorSpan.classList.add('form__input-error_active');
+function showInputError(input, errorSpan, errorActiveClass, errorInputClass) {
+  errorSpan.classList.add(errorActiveClass);
   errorSpan.innerText = input.validationMessage;
-  input.classList.add('popup__input_error');
+  input.classList.add(errorInputClass);
 }
 
-function hideInputError(input, errorSpan) {
+function hideInputError(input, errorSpan, errorActiveClass, errorInputClass) {
   errorSpan.innerText = '';
-  errorSpan.classList.remove('form__input-error_active');
-  input.classList.remove('popup__input_error');
+  errorSpan.classList.remove(errorActiveClass);
+  input.classList.remove(errorInputClass);
 }
 
-function checkInputValidity(input, errorSpan) {
+function checkInputValidity(
+  input,
+  errorSpan,
+  errorActiveClass,
+  errorInputClass
+) {
+  console.log(input, errorSpan, errorActiveClass, errorInputClass);
   if (!input.validity.valid) {
-    showInputError(input, errorSpan);
+    showInputError(input, errorSpan, errorActiveClass, errorInputClass);
   } else {
-    hideInputError(input, errorSpan);
+    hideInputError(input, errorSpan, errorActiveClass, errorInputClass);
   }
 }
 
@@ -60,7 +81,10 @@ function setEventListeners(
   fieldList,
   buttonSave,
   inputSelector,
-  inputErrorSelector
+  inputErrorSelector,
+  errorActiveClass,
+  errorInputClass,
+  inactiveButtonClass
 ) {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -70,13 +94,14 @@ function setEventListeners(
     const input = field.querySelector(inputSelector);
     const errorSpan = field.querySelector(inputErrorSelector);
     input.addEventListener('input', (e) => {
-      checkInputValidity(input, errorSpan);
-      validateButton(fieldList, buttonSave);
+      checkInputValidity(input, errorSpan, errorActiveClass, errorInputClass);
+      validateButton(fieldList, buttonSave, inputSelector, inactiveButtonClass);
     });
   });
 }
 
 export function enableValidation(config) {
+  console.log(config);
   const forms = document.querySelectorAll(config.formSelector);
 
   forms.forEach(function (form) {
@@ -87,7 +112,10 @@ export function enableValidation(config) {
       fieldList,
       buttonSave,
       config.inputSelector,
-      config.inputErrorSelector
+      config.inputErrorSelector,
+      config.errorActiveClass,
+      config.errorInputClass,
+      config.inactiveButtonClass
     );
   });
 }

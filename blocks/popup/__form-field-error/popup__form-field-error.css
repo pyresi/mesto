@@ -1,6 +1,6 @@
-.form__input-error {
+.popup__form-field-error {
   font-size: 12px;
-  font-weight: 400;
+  font-weigth: 400;
   line-height: 15px;
   color: red;
   opacity: 0;
