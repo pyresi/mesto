@@ -14,21 +14,6 @@ function enableButton(button, inactiveButtonClass) {
   button.disabled = false;
 }
 
-export function validateForm(form, config) {
-  const fieldList = Array.from(form.querySelectorAll(config.fieldSelector));
-  const buttonSave = form.querySelector(config.buttonSelector);
-
-  fieldList.forEach((field) => {
-    const input = field.querySelector(config.inputSelector);
-    const errorSpan = field.querySelector(config.inputErrorSelector);
-    checkInputValidity(
-      input,
-      errorSpan,
-      config.errorActiveClass,
-      config.errorInputClass
-    );
-  });
-
   validateButton(
     fieldList,
     buttonSave,
