@@ -14,14 +14,6 @@ function enableButton(button, inactiveButtonClass) {
   button.disabled = false;
 }
 
-  validateButton(
-    fieldList,
-    buttonSave,
-    config.inputSelector,
-    config.inactiveButtonClass
-  );
-}
-
 function validateButton(
   fieldList,
   buttonSave,
