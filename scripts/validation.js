@@ -45,7 +45,6 @@ function checkInputValidity(
   errorActiveClass,
   errorInputClass
 ) {
-  console.log(input, errorSpan, errorActiveClass, errorInputClass);
   if (!input.validity.valid) {
     showInputError(input, errorSpan, errorActiveClass, errorInputClass);
   } else {
@@ -101,7 +100,6 @@ export function validateForm(form, config) {
 }
 
 export function enableValidation(config) {
-  console.log(config);
   const forms = document.querySelectorAll(config.formSelector);
 
   forms.forEach(function (form) {

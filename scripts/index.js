@@ -29,7 +29,6 @@ function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', handleEscKey);
   popup.addEventListener('click', handleOverlayClick);
-  // console.log(popup.eventListeners);
 }
 
 function closeEventPopup(evt) {
