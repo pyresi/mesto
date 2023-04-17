@@ -25,6 +25,17 @@ const initialCards = [
   },
 ];
 
+const config = {
+  formSelector: '.popup__form',
+  fieldSelector: '.popup__form-field',
+  buttonSelector: '.popup__button-save',
+  inputSelector: '.popup__input',
+  inputErrorSelector: '.popup__form-field-error',
+  errorActiveClass: 'popup__form-field-error_active',
+  errorInputClass: 'popup__input_error',
+  inactiveButtonClass: 'popup__button-save_disabled',
+};
+
 import { FormValidator } from './FormValidator.js';
 import { Card } from './Card.js';
 // HTML Elements
@@ -51,6 +62,11 @@ const popupPhoto = document.querySelector('.popup_type_photo');
 const photo = popupPhoto.querySelector('.popup__photo');
 const photoSubtitle = popupPhoto.querySelector('.popup__photo-subtitle');
 
+const formValidators = {
+  'edit-validator': new FormValidator(config, popupProfileForm),
+  'add-validator': new FormValidator(config, popupFormAdd),
+};
+
 // -------------------------------------
 
 // Functions
@@ -68,15 +84,20 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', handleEscKey);
   popup.removeEventListener('click', handleOverlayClick);
+
+  // popup.querySelector('form').reset();
 }
 
 function openAddPopup() {
+  formValidators['add-validator'].runValidation();
   openPopup(popupAdd);
 }
 
 function openEditPopup() {
   jobInput.value = profileBio.textContent;
   nameInput.value = profileName.textContent;
+
+  formValidators['edit-validator'].runValidation();
   openPopup(popupEdit);
 }
 
@@ -142,23 +163,6 @@ const createdCards = initialCards.map(function (element) {
 createdCards.reverse();
 createdCards.forEach(addElement);
 
-const config = {
-  formSelector: '.popup__form',
-  fieldSelector: '.popup__form-field',
-  buttonSelector: '.popup__button-save',
-  inputSelector: '.popup__input',
-  inputErrorSelector: '.popup__form-field-error',
-  errorActiveClass: 'popup__form-field-error_active',
-  errorInputClass: 'popup__input_error',
-  inactiveButtonClass: 'popup__button-save_disabled',
-};
-
-const formValidators = Array.from(
-  document.querySelectorAll('.popup__form')
-).map(function (element) {
-  return new FormValidator(config, element);
-});
-
-formValidators.forEach(function (formValidator) {
-  formValidator.enableValidation();
+Object.keys(formValidators).forEach((key) => {
+  formValidators[key].enableValidation();
 });
