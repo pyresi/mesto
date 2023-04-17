@@ -1,7 +1,5 @@
-import { openPhotoPopup } from './index.js';
-
 export class Card {
-  constructor(cardData, templateSelector) {
+  constructor(cardData, templateSelector, handleCardClick) {
     this._cardData = cardData;
     this._templateSelector = templateSelector;
     this._currentElement = this._templateSelector.cloneNode(true);
@@ -9,6 +7,7 @@ export class Card {
     this._trash = this._currentElement.querySelector('.element__trash');
     this._elementTitle = this._currentElement.querySelector('.element__title');
     this._elementPhoto = this._currentElement.querySelector('.element__photo');
+    this._handleCardClick = handleCardClick;
   }
 
   _setTitle() {
@@ -28,7 +27,7 @@ export class Card {
       this._handleDeleteClick();
     });
     this._elementPhoto.addEventListener('click', () => {
-      this._handleOpenClick();
+      this._handleCardClick(this._cardData.name, this._cardData.link);
     });
   }
 
@@ -39,11 +38,6 @@ export class Card {
   _handleDeleteClick() {
     console.log(this._currentElement);
     this._currentElement.remove();
-  }
-
-  _handleOpenClick() {
-    // console.log(this._cardData);
-    openPhotoPopup(this._cardData.name, this._cardData.link);
   }
 
   createCard() {

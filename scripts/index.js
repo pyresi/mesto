@@ -66,8 +66,8 @@ function closeEventPopup(evt) {
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  popup.removeEventListener('keydown', handleEscKey);
-  popup.removeEventListener('mousedown', handleOverlayClick);
+  document.removeEventListener('keydown', handleEscKey);
+  popup.removeEventListener('click', handleOverlayClick);
 }
 
 function openAddPopup() {
@@ -76,14 +76,11 @@ function openAddPopup() {
 
 function openEditPopup() {
   jobInput.value = profileBio.textContent;
-  jobInput.dispatchEvent(new Event('input', { bubbles: true }));
-
   nameInput.value = profileName.textContent;
-  nameInput.dispatchEvent(new Event('input', { bubbles: true }));
   openPopup(popupEdit);
 }
 
-export function openPhotoPopup(name, link) {
+function openPhotoPopup(name, link) {
   openPopup(popupPhoto);
   photo.src = link;
   photo.alt = name;
@@ -97,20 +94,22 @@ function handleEditForm(evt) {
   closeEventPopup(evt);
 }
 
+function createCard(item) {
+  const card = new Card(item, elementTemplate, openPhotoPopup);
+  const cardElement = card.createCard();
+  return cardElement;
+}
+
 function handleAddForm(evt) {
   evt.preventDefault();
-  const newCard = new Card(
-    { name: inputTitle.value, link: inputLink.value },
-    elementTemplate
-  );
+  const newCard = createCard({ name: inputTitle.value, link: inputLink.value });
   addElement(newCard);
-  inputTitle.value = '';
-  inputLink.value = '';
+  evt.target.reset();
   closeEventPopup(evt);
 }
 
 function addElement(card) {
-  elements.prepend(card.createCard());
+  elements.prepend(card);
 }
 
 function handleEscKey(evt) {
@@ -138,7 +137,7 @@ popupProfileForm.addEventListener('submit', handleEditForm);
 popupFormAdd.addEventListener('submit', handleAddForm);
 
 const createdCards = initialCards.map(function (element) {
-  return new Card(element, elementTemplate);
+  return createCard(element);
 });
 createdCards.reverse();
 createdCards.forEach(addElement);
@@ -163,7 +162,3 @@ const formValidators = Array.from(
 formValidators.forEach(function (formValidator) {
   formValidator.enableValidation();
 });
-
-export function abbabaca() {
-  console.log('kek');
-}
