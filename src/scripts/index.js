@@ -1,3 +1,8 @@
+import '../pages/index.css';
+
+import { FormValidator } from './FormValidator.js';
+import { Card } from './Card.js';
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -36,8 +41,6 @@ const config = {
   inactiveButtonClass: 'popup__button-save_disabled',
 };
 
-import { FormValidator } from './FormValidator.js';
-import { Card } from './Card.js';
 // HTML Elements
 const buttonEdit = document.querySelector('.profile__button-edit');
 const profileName = document.querySelector('.profile__name');
