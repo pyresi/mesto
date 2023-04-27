@@ -2,6 +2,8 @@ import '../pages/index.css';
 
 import { FormValidator } from './FormValidator.js';
 import { Card } from './Card.js';
+import { Popup } from './Popup.js';
+import { PopupWithImage } from './PopupWithImage';
 
 const initialCards = [
   {
@@ -51,19 +53,22 @@ const elementTemplate = document
   .querySelector('#element-template')
   .content.querySelector('.element');
 
-const popupEdit = document.querySelector('.popup_type_edit');
+const popupEdit = new Popup(document.querySelector('.popup_type_edit'));
+
 const popupProfileForm = document.forms['popup-form-edit'];
-const nameInput = popupEdit.querySelector('.popup__input_type_name');
-const jobInput = popupEdit.querySelector('.popup__input_type_job');
+// const nameInput = popupEdit.querySelector('.popup__input_type_name');
+// const jobInput = popupEdit.querySelector('.popup__input_type_job');
 
 const popupAdd = document.querySelector('.popup_type_add');
 const popupFormAdd = document.forms['popup-form-add'];
 const inputTitle = popupAdd.querySelector('.popup__input_type_title');
 const inputLink = popupAdd.querySelector('.popup__input_type_link');
 
-const popupPhoto = document.querySelector('.popup_type_photo');
-const photo = popupPhoto.querySelector('.popup__photo');
-const photoSubtitle = popupPhoto.querySelector('.popup__photo-subtitle');
+const popupPhoto = new PopupWithImage(
+  document.querySelector('.popup_type_photo')
+);
+// const photo = popupPhoto.querySelector('.popup__photo');
+// const photoSubtitle = popupPhoto.querySelector('.popup__photo-subtitle');
 
 const formValidators = {
   'edit-validator': new FormValidator(config, popupProfileForm),
@@ -96,19 +101,20 @@ function openAddPopup() {
   openPopup(popupAdd);
 }
 
-function openEditPopup() {
-  jobInput.value = profileBio.textContent;
-  nameInput.value = profileName.textContent;
+// function openEditPopup() {
+//   jobInput.value = profileBio.textContent;
+//   nameInput.value = profileName.textContent;
 
-  formValidators['edit-validator'].runValidation();
-  openPopup(popupEdit);
-}
+//   formValidators['edit-validator'].runValidation();
+//   openPopup(popupEdit);
+// }
 
 function openPhotoPopup(name, link) {
-  openPopup(popupPhoto);
-  photo.src = link;
-  photo.alt = name;
-  photoSubtitle.textContent = name;
+  // openPopup(popupPhoto);
+  // photo.src = link;
+  // photo.alt = name;
+  // photoSubtitle.textContent = name;
+  popupPhoto.open(name, link);
 }
 
 function handleEditForm(evt) {
@@ -151,12 +157,12 @@ function handleOverlayClick(evt) {
 
 // -------------------------------------
 
-document.querySelectorAll('.popup__button-close').forEach((button) => {
-  button.addEventListener('click', closeEventPopup);
-});
+// document.querySelectorAll('.popup__button-close').forEach((button) => {
+//   button.addEventListener('click', closeEventPopup);
+// });
 
 buttonAdd.addEventListener('click', openAddPopup);
-buttonEdit.addEventListener('click', openEditPopup);
+// buttonEdit.addEventListener('click', openEditPopup);
 popupProfileForm.addEventListener('submit', handleEditForm);
 popupFormAdd.addEventListener('submit', handleAddForm);
 
