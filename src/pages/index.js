@@ -47,10 +47,6 @@ function handleAddForm(evt, inputs) {
   popupAdd.close();
 }
 
-// HTML Elements
-const buttonEdit = document.querySelector('.profile__button-edit');
-const buttonAdd = document.querySelector('.profile__button-add');
-
 const elementTemplate = document
   .querySelector('#element-template')
   .content.querySelector('.element');
@@ -77,7 +73,7 @@ const userInfo = new UserInfo({
 
 const formValidators = {};
 
-const enableValidation = (config) => {
+function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formElement) => {
     const validator = new FormValidator(config, formElement);
@@ -86,11 +82,13 @@ const enableValidation = (config) => {
     formValidators[formName] = validator;
     validator.enableValidation();
   });
-};
+}
 
 enableValidation(config);
 
 // -------------------------------------
+const buttonEdit = document.querySelector('.profile__button-edit');
+const buttonAdd = document.querySelector('.profile__button-add');
 
 buttonAdd.addEventListener('click', openAddPopup);
 buttonEdit.addEventListener('click', openEditPopup);
