@@ -20,7 +20,7 @@ export class FormValidator {
         error: errorSpan,
       };
     });
-    // console.log(this._fieldList);
+
     this._buttonSave = this._form.querySelector(this._buttonSelector);
   }
 
@@ -67,11 +67,11 @@ export class FormValidator {
     }
   }
 
-  runValidation() {
+  resetValidation() {
     this._validateButton();
 
     this._fieldList.forEach((field) => {
-      this._checkInputValidity(field.input, field.error);
+      this._hideInputError(field.input, field.error);
     });
   }
 
