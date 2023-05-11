@@ -5,7 +5,9 @@ export class Card {
     handleCardClick,
     handleDeleteClick,
     myId,
-    api
+    deleteLikeCallback,
+    putLikecallback,
+    deleteCardCallback
   ) {
     this._cardData = cardData;
     this._templateSelector = templateSelector;
@@ -20,7 +22,9 @@ export class Card {
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
     this._myId = myId;
-    this._api = api;
+    this._deleteLikeCallback = deleteLikeCallback;
+    this._putLikeCallback = putLikecallback;
+    this._deleteCardCallback = deleteCardCallback;
   }
 
   _setTitle() {
@@ -67,23 +71,23 @@ export class Card {
     }
   }
 
+  _updateLikes(likes) {
+    this._cardData.likes = likes;
+    this._setLikes();
+  }
   _handleLikeClick() {
     if (this._checkLiked()) {
-      this._api
-        .deleteLike(this._cardData._id)
-        .then((res) => {
-          this._cardData.likes = res.likes;
-          this._setLikes();
+      this._deleteLikeCallback(this._cardData._id)
+        .then((likes) => {
+          this._updateLikes(likes);
         })
         .catch((err) => {
           console.log(err);
         });
     } else {
-      this._api
-        .putLike(this._cardData._id)
-        .then((res) => {
-          this._cardData.likes = res.likes;
-          this._setLikes();
+      this._putLikeCallback(this._cardData._id)
+        .then((likes) => {
+          this._updateLikes(likes);
         })
         .catch((err) => {
           console.log(err);
@@ -92,11 +96,8 @@ export class Card {
   }
 
   _removeCard() {
-    console.log(this._currentElement);
-    this._api
-      .deleteCard(this._cardData._id)
+    this._deleteCardCallback(this._cardData._id)
       .then((res) => {
-        // console.log(res);
         this._currentElement.remove();
       })
       .catch((err) => {

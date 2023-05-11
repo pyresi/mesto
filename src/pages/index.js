@@ -20,6 +20,22 @@ const api = new Api({
   },
 });
 
+function deleteLike(cardId) {
+  return api.deleteLike(cardId).then((res) => {
+    return res.likes;
+  });
+}
+
+function putLike(cardId) {
+  return api.putLike(cardId).then((res) => {
+    return res.likes;
+  });
+}
+
+function deleteCard(cardId) {
+  return api.deleteCard(cardId);
+}
+
 function openAddPopup() {
   formValidators['popup-form-add'].resetValidation();
   popupAdd.open();
@@ -64,7 +80,9 @@ function createCard(item) {
     openPhotoPopup,
     openConfirmationPopup,
     userInfo.getId(),
-    api
+    deleteLike,
+    putLike,
+    deleteCard
   );
   const cardElement = card.createCard();
   return cardElement;
