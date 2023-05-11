@@ -6,9 +6,19 @@ import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { Section } from '../components/Section.js';
-import { initialCards, config } from '../utils/constants.js';
+import { config } from '../utils/constants.js';
+import { PopupWithConfirmation } from '../components/PopupWithConfirmation';
+import { Api } from '../components/Api';
 
 // -------------------------------------
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-65',
+  headers: {
+    authorization: 'c64bdc0f-9e69-43d7-913f-b4a8209f730f',
+    'Content-Type': 'application/json',
+  },
+});
 
 function openAddPopup() {
   formValidators['popup-form-add'].resetValidation();
@@ -26,36 +36,76 @@ function openPhotoPopup(name, link) {
   popupPhoto.open(name, link);
 }
 
+function openConfirmationPopup(confirmationCallback) {
+  popupWithConfirmation.open(confirmationCallback);
+}
+
+function openAvatarPopup() {
+  popupAvatar.open();
+}
+
 function handleEditForm(evt, inputs) {
   evt.preventDefault();
-  userInfo.setUserInfo(inputs['input-name'], inputs['input-job']);
-  popupEdit.close();
+  api
+    .editUserInfo(inputs['input-name'], inputs['input-job'])
+    .then((res) => {
+      userInfo.setUserInfo(res.name, res.about);
+      popupEdit.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 function createCard(item) {
-  const card = new Card(item, elementTemplate, openPhotoPopup);
+  const card = new Card(
+    item,
+    elementTemplate,
+    openPhotoPopup,
+    openConfirmationPopup,
+    userInfo.getId(),
+    api
+  );
   const cardElement = card.createCard();
   return cardElement;
 }
 
 function handleAddForm(evt, inputs) {
   evt.preventDefault();
-  section.addItem({
-    name: inputs['input-title'],
-    link: inputs['input-link'],
-  });
-  popupAdd.close();
+  api
+    .postCard(inputs['input-title'], inputs['input-link'])
+    .then((res) => {
+      cardSection.addItem(res);
+      popupAdd.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function handleAvatarForm(evt, inputs) {
+  evt.preventDefault();
+  api
+    .changeAvatar(inputs['input-avatar'])
+    .then((res) => {
+      userInfo.setAvatar(res.avatar);
+      popupAvatar.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 const elementTemplate = document
   .querySelector('#element-template')
   .content.querySelector('.element');
 
-const section = new Section(
-  { items: initialCards, renderer: createCard },
-  '.elements'
-);
-section.renderItems();
+// const section = new Section(
+//   { items: initialCards, renderer: createCard },
+//   '.elements'
+// );
+// section.renderItems();
+let cardSection;
 
 const popupEdit = new PopupWithForm('.popup_type_edit', handleEditForm);
 popupEdit.setEventListeners();
@@ -66,9 +116,18 @@ popupAdd.setEventListeners();
 const popupPhoto = new PopupWithImage('.popup_type_photo');
 popupPhoto.setEventListeners();
 
+const popupWithConfirmation = new PopupWithConfirmation(
+  '.popup_type_confirmation'
+);
+popupWithConfirmation.setEventListeners();
+
+const popupAvatar = new PopupWithForm('.popup_type_avatar', handleAvatarForm);
+popupAvatar.setEventListeners();
+
 const userInfo = new UserInfo({
   nameSelector: '.profile__name',
   bioSelector: '.profile__bio',
+  avatarSelector: '.profile__avatar',
 });
 
 const formValidators = {};
@@ -89,6 +148,31 @@ enableValidation(config);
 // -------------------------------------
 const buttonEdit = document.querySelector('.profile__button-edit');
 const buttonAdd = document.querySelector('.profile__button-add');
+const buttonAvatarEdit = document.querySelector('.profile__avatar');
 
 buttonAdd.addEventListener('click', openAddPopup);
 buttonEdit.addEventListener('click', openEditPopup);
+buttonAvatarEdit.addEventListener('click', openAvatarPopup);
+
+api
+  .getUserInfo()
+  .then((result) => {
+    console.log(result);
+    userInfo.setUserInfo(result.name, result.about);
+    userInfo.setAvatar(result.avatar);
+    userInfo.setId(result._id);
+  })
+  .then(() => {
+    return api.getInitialCards();
+  })
+  .then((result) => {
+    console.log(result);
+    cardSection = new Section(
+      { items: result, renderer: createCard },
+      '.elements'
+    );
+    cardSection.renderItems();
+  })
+  .catch((err) => {
+    console.log(err);
+  });

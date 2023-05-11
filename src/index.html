@@ -24,8 +24,8 @@
             <!-- -----profile----- -->
             <!-- ---------------- -->
             <section class="profile">
-                <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>"
-                    alt="Портретная фотография улыбающегося Жак-Ива Густо">
+                <button class="profile__avatar" type="button"></button>
+                <!-- <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар"> -->
                 <div class="profile__info">
                     <div class="profile__info-box">
                         <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -64,7 +64,7 @@
                             maxlength="200" required placeholder="Ввведите биографию">
                         <span class="popup__form-field-error"></span>
                     </label>
-                    <button class=" popup__button-save" type="submit">Сохранить</button>
+                    <button class="popup__button-save" type="submit">Сохранить</button>
                 </form>
             </div>
         </div>
@@ -98,14 +98,40 @@
             </div>
         </div>
     </div>
-    <!-- --------------------------------------------------------------- -->
+    <!-- --------------------------------------------------------------- -->\
+    <div class="popup popup_type_avatar">
+        <div class="popup__container">
+            <button class="popup__button-close" type="button"></button>
+            <h2 class="popup__title">Обновить аватар</h2>
+            <form name="popup-form-avatar" class="popup__form">
+                <label class="popup__form-field">
+                    <input type="url" name="input-avatar" class="popup__input popup__input_type_link"
+                        placeholder="Ссылка на картинку" required>
+                    <span class="popup__form-field-error"></span>
+                </label>
+                <button class=" popup__button-save" type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
+    <!-- ----------------------------------------------------- -->
+    <div class="popup popup_type_confirmation">
+        <div class="popup__container">
+            <button class="popup__button-close" type="button"></button>
+            <h2 class="popup__title">Вы уверены?</h2>
+            <button class="popup__button-save" type="button">Да</button>
+        </div>
+    </div>
+    <!-- -------------------------------------------------------- -->
     <template id="element-template">
         <article class="element">
             <img class="element__photo">
             <button class="element__trash" type="button"></button>
             <div class="element__description">
                 <h2 class="element__title"></h2>
-                <button class="element__like" type="button"></button>
+                <div class="element__like-container">
+                    <button class="element__like" type="button"></button>
+                    <p class="element__like-counter"></p>
+                </div>
             </div>
         </article>
     </template>
