@@ -57,7 +57,7 @@ export class Card {
     });
     this._trash.addEventListener('click', () => {
       this._handleDeleteClick(() => {
-        this._removeCard();
+        return this._removeCard();
       });
     });
     this._elementPhoto.addEventListener('click', () => {
@@ -96,13 +96,9 @@ export class Card {
   }
 
   _removeCard() {
-    this._deleteCardCallback(this._cardData._id)
-      .then((res) => {
-        this._currentElement.remove();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    return this._deleteCardCallback(this._cardData._id).then((res) => {
+      this._currentElement.remove();
+    });
   }
 
   createCard() {

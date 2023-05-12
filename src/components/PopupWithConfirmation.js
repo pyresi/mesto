@@ -13,8 +13,13 @@ export class PopupWithConfirmation extends Popup {
     super.setEventListeners();
     this._buttonConfirmation.addEventListener('click', () => {
       this._buttonConfirmation.textContent = 'Сохранение...';
-      this.confirmationCallback();
-      this.close();
+      this.confirmationCallback()
+        .then(() => {
+          this.close();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     });
   }
 }

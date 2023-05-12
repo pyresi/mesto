@@ -186,7 +186,7 @@ api
   .then((result) => {
     console.log(result);
     cardSection = new Section(
-      { items: result, renderer: createCard },
+      { items: result.reverse(), renderer: createCard },
       '.elements'
     );
     cardSection.renderItems();
