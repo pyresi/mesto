@@ -20,20 +20,38 @@ const api = new Api({
   },
 });
 
-function deleteLike(cardId) {
-  return api.deleteLike(cardId).then((res) => {
-    return res.likes;
-  });
+function deleteLike(card) {
+  api
+    .deleteLike(card.getCardId())
+    .then((res) => {
+      card.updateLikes(res.likes);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
-function putLike(cardId) {
-  return api.putLike(cardId).then((res) => {
-    return res.likes;
-  });
+function putLike(card) {
+  api
+    .putLike(card.getCardId())
+    .then((res) => {
+      card.updateLikes(res.likes);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
-function deleteCard(cardId) {
-  return api.deleteCard(cardId);
+function deleteCard(card) {
+  api
+    .deleteCard(card.getCardId())
+    .then((res) => {
+      card.remove();
+      popupWithConfirmation.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 function openAddPopup() {

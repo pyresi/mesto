@@ -4,22 +4,18 @@ export class PopupWithConfirmation extends Popup {
     super(popupSelector);
     this._buttonConfirmation = this._popup.querySelector('.popup__button-save');
   }
+
   open(confirmationCallback) {
     this.confirmationCallback = confirmationCallback;
     super.open();
     this._buttonConfirmation.textContent = 'Да';
   }
+
   setEventListeners() {
     super.setEventListeners();
     this._buttonConfirmation.addEventListener('click', () => {
       this._buttonConfirmation.textContent = 'Сохранение...';
-      this.confirmationCallback()
-        .then(() => {
-          this.close();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      this.confirmationCallback();
     });
   }
 }

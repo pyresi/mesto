@@ -57,7 +57,7 @@ export class Card {
     });
     this._trash.addEventListener('click', () => {
       this._handleDeleteClick(() => {
-        return this._removeCard();
+        this._removeCard();
       });
     });
     this._elementPhoto.addEventListener('click', () => {
@@ -71,34 +71,29 @@ export class Card {
     }
   }
 
-  _updateLikes(likes) {
+  updateLikes(likes) {
     this._cardData.likes = likes;
     this._setLikes();
   }
+
+  getCardId() {
+    return this._cardData._id;
+  }
+
   _handleLikeClick() {
     if (this._checkLiked()) {
-      this._deleteLikeCallback(this._cardData._id)
-        .then((likes) => {
-          this._updateLikes(likes);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      this._deleteLikeCallback(this);
     } else {
-      this._putLikeCallback(this._cardData._id)
-        .then((likes) => {
-          this._updateLikes(likes);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      this._putLikeCallback(this);
     }
   }
 
   _removeCard() {
-    return this._deleteCardCallback(this._cardData._id).then((res) => {
-      this._currentElement.remove();
-    });
+    this._deleteCardCallback(this);
+  }
+
+  remove() {
+    this._currentElement.remove();
   }
 
   createCard() {
