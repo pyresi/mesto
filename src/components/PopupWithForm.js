@@ -7,6 +7,7 @@ export class PopupWithForm extends Popup {
     this._form = this._popup.querySelector('.popup__form');
     this._inputList = this._form.querySelectorAll('.popup__input');
     this._buttonSave = this._popup.querySelector('.popup__button-save');
+    this._saveButtonOriginalText = this._buttonSave.textContent;
   }
 
   setEventListeners() {
@@ -25,7 +26,7 @@ export class PopupWithForm extends Popup {
 
   open() {
     super.open();
-    this._buttonSave.textContent = 'Сохранить';
+    this._buttonSave.textContent = this._saveButtonOriginalText;
   }
 
   close() {
